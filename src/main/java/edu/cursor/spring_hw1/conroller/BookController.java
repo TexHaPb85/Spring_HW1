@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("library/book")
+@RequestMapping("library/books")
 public class BookController {
     private final BookRepository bookRepository;
 
@@ -24,7 +24,7 @@ public class BookController {
         return bookRepository.getBooks().toString();
     }
 
-    @GetMapping("sortByGenre/{genre}")
+    @GetMapping("{genre}")
     public List<Book> getGenreSortedBooks(@PathVariable String genre) {
         return bookRepository.getBooks().stream()
                 .filter(book -> book.getGenre().equals(genre))

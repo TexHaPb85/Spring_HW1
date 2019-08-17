@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("library/author")
+@RequestMapping("library/authors")
 public class AuthorController {
     private final AuthorRepository authorRepository;
 
@@ -24,8 +24,8 @@ public class AuthorController {
         return authorRepository.getAuthors().toString();
     }
 
-    @GetMapping("/booksOf/{id}")
-    public List<Book> getAuthorBooks(@PathVariable Integer id){
+    @GetMapping("/books/{id}")
+    public List<Book> getAuthorBooks(@PathVariable Integer id) {
         return authorRepository.getAuthors().get(id).getBooks();
     }
 

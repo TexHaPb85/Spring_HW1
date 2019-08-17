@@ -32,8 +32,6 @@ public class Author {
         this.books = books;
     }
 
-
-
     public int getId() {
         return id;
     }
@@ -57,8 +55,6 @@ public class Author {
     public void setSurName(String surName) {
         this.surName = surName;
     }
-
-
 
     @Override
     public String toString() {
