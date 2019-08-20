@@ -1,42 +1,50 @@
 package edu.cursor.spring_hw1.entities;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table(name = "authors")
 public class Author {
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column(name = "name",nullable = false, unique = true)
     private String name;
+    @Column(name = "sur_name",nullable = false, unique = true)
     private String surName;
-    private List<Book> books;
+
+/*    private List<Book> books;*/
 
     public Author() {
-        this.books = new ArrayList<>();
+        //this.books = new ArrayList<>();
     }
 
-    public Author(int id, String name, String surName) {
+    public Author(Long id, String name, String surName) {
         this.id = id;
         this.name = name;
         this.surName = surName;
-        this.books = new ArrayList<>();
+        //this.books = new ArrayList<>();
     }
 
     public void addBook(Book book){
-        books.add(book);
+        //books.add(book);
     }
 
-    public List<Book> getBooks() {
+/*    public List<Book> getBooks() {
         return books;
-    }
+    }*/
 
-    public void setBooks(List<Book> books) {
+/*    public void setBooks(List<Book> books) {
         this.books = books;
-    }
+    }*/
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -62,7 +70,7 @@ public class Author {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", surName='" + surName + '\'' +
-                ", book='" + books + '\'' +
+                //", book='" + books + '\'' +
                 "}";
     }
 }

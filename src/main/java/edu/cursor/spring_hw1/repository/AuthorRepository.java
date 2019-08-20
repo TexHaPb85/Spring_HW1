@@ -1,17 +1,11 @@
 package edu.cursor.spring_hw1.repository;
 
 import edu.cursor.spring_hw1.entities.Author;
-import edu.cursor.spring_hw1.entities.Book;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
-
-public interface AuthorRepository {
-
-    List<Author> getAuthors();
-
-    void addAuthor(Author author);
-
-    void deleteAuthor(int idOfAuthor);
-
-    void addBook(Integer idOfAuthor, Book book);
+public interface AuthorRepository extends JpaRepository<Author, Long> {
+    /**How can I implement it?????
+     @Query("select * from books where authorID = id")
+     List<Book> getBooksByAuthorId(Long id);
+     */
 }
