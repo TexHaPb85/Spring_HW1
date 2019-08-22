@@ -82,9 +82,9 @@ SELECT books.id, books.title, books.genre, books.description, books.rate FROM bo
 -- Вивести всіх авторів, відсортованих за віком
 SELECT * FROM authors ORDER BY age;
 
--- Вивести всіх авторів, в кого більше виданих книг
+/*-- Вивести всіх авторів, в кого більше виданих книг
 SELECT authors.id, authors.first_name, authors.last_name, authors.country, authors.age, COUNT(authors_own.author_id) AS count_books FROM authors
   INNER JOIN authors_own ON authors.id=authors_own.author_id
 GROUP BY authors.id
 ORDER BY count_books DESC
-LIMIT 1;
+LIMIT 1;*/

@@ -7,5 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface BookRepository extends JpaRepository<Book,Long>{
-    List<Book> findBooksByAuthorID(Long id);
+    //@Query("select * from books where authorID = 'id'")
+    //List<Book> findBooksByAuthorID(Long id);
 }

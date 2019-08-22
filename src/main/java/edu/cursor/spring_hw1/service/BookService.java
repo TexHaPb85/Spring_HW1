@@ -35,7 +35,7 @@ public class BookService {
                 .orElseThrow(() -> new BookNotFoundException("book with id " + id + "not found"));
     }
 
-    public List<Book> findBooksByAuthorId(Long id){
+/*    public List<Book> findBooksByAuthorId(Long id){
         return bookRepository.findBooksByAuthorID(id);
-    }
+    }*/
 }

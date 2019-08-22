@@ -16,15 +16,15 @@ public class Book {
     private String description;
     @Column(name = "rating", nullable = false)
     private double rating;
-    @Column(name = "authorID", nullable = false)
-    private Long authorID;
+    @ManyToOne(cascade=CascadeType.ALL)
+    private Author author;
 
-    public Book(String title, String genre, String description, double rating, Long authorID) {
+    public Book(String title, String genre, String description, double rating, Author author) {
         this.title = title;
         this.genre = genre;
         this.description = description;
         this.rating = rating;
-        this.authorID = authorID;
+        this.author = author;
     }
 
     public Book() {
@@ -70,12 +70,12 @@ public class Book {
         this.rating = rating;
     }
 
-    public Long getAuthorID() {
-        return authorID;
+    public Author getAuthor() {
+        return author;
     }
 
-    public void setAuthorID(Long authorID) {
-        this.authorID = authorID;
+    public void setAuthor(Author author) {
+        this.author = author;
     }
 
     @Override
