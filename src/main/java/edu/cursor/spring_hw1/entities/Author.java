@@ -1,32 +1,48 @@
 package edu.cursor.spring_hw1.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "authors")
-public class Author {
+public class Author implements UserDetails{
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "author_Id")
     private Long id;
+
     @Column(name = "name", nullable = false, unique = true)
     private String name;
+
     @Column(name = "sur_name", nullable = false, unique = true)
     private String surName;
+
+    @Column(name = "password")
+    private String password;
+
     @OneToMany(mappedBy = "author")
     private List<Book> books;
 
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "AUTHOR_ROLE",joinColumns = @JoinColumn(name = "author_Id"))
+    @Enumerated(EnumType.STRING)
+    private Set<Role> roles;
+
+
     public Author() {
-        this.books = new ArrayList<>();
+
     }
 
-    public Author(Long id, String name, String surName) {
-        this.id = id;
-        this.name = name;
-        this.surName = surName;
-        this.books = new ArrayList<>();
-    }
 
     public void addBook(Book book) {
         books.add(book);
@@ -72,5 +88,46 @@ public class Author {
                 ", surName='" + surName + '\'' +
                 ", book='" + books + '\'' +
                 "}";
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return roles.stream()
+                .map(role -> new SimpleGrantedAuthority(role.name()))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public String getPassword() {
+        return this.name;
+    }
+
+    @Override
+    public String getUsername() {
+        return this.password;
+    }
+
+    @JsonIgnore
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @JsonIgnore
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @JsonIgnore
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @JsonIgnore
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }
