@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configurers.provisioning.InMemoryUserDetailsManagerConfigurer;
@@ -17,12 +16,15 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(securedEnabled = true)
+@EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
 public class LibrarySecurity extends WebSecurityConfigurerAdapter {
 
-    @Qualifier("authorService")
+    private final UserDetailsService authorService;
+
     @Autowired
-    private UserDetailsService authorService;
+    public LibrarySecurity(@Qualifier("authorService") UserDetailsService authorService) {
+        this.authorService = authorService;
+    }
 
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
@@ -35,19 +37,6 @@ public class LibrarySecurity extends WebSecurityConfigurerAdapter {
     private InMemoryUserDetailsManagerConfigurer<AuthenticationManagerBuilder> inMemoryConfigure() {
         return new InMemoryUserDetailsManagerConfigurer<>();
     }
-
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder builder,
-                                AuthenticationProvider provider) throws Exception {
-        inMemoryConfigure()
-                .withUser("ss")
-                .password("ss")
-                .roles("ADMIN")
-                .and()
-                .configure(builder);
-        builder.authenticationProvider(provider);
-    }
-
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -80,3 +69,15 @@ public class LibrarySecurity extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 }
+
+/*    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder builder,
+                                AuthenticationProvider provider) throws Exception {
+        inMemoryConfigure()
+                .withUser("mike")
+                .password("1234")
+                .roles("ADMIN","USER")
+                .and()
+                .configure(builder);
+        builder.authenticationProvider(provider);
+    }*/

@@ -31,8 +31,23 @@ public class AuthorService implements UserDetailsService{
                 .orElseThrow(()->new AuthorNotFoundException("author not found"));
     }
 
-    public void saveAuthor(Author author){
+    public Author findByUserName(String userName){
+        return authorRepository.findAuthorByName(userName).get();
+    }
+
+    public Author saveAuthor(Author author){
         authorRepository.save(author);
+        return author;
+    }
+
+    public Author updateAuthor(Author author, Long id) {
+        Author editedAuthor = authorRepository.findById(id).orElseThrow(() -> new AuthorNotFoundException("Author not found"));
+        //editedAuthor.setId(author.getId());
+        System.out.println(id);
+        editedAuthor.setName(author.getName());
+        editedAuthor.setSurName(author.getSurName());
+        editedAuthor.setPassword(author.getPassword());
+        return authorRepository.save(editedAuthor);
     }
 
     @Transactional
@@ -42,6 +57,6 @@ public class AuthorService implements UserDetailsService{
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        return null;
+        return findByUserName(s);
     }
 }

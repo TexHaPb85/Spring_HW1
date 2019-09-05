@@ -1,16 +1,19 @@
 package edu.cursor.spring_hw1.repository;
 
 import edu.cursor.spring_hw1.entities.Author;
-import edu.cursor.spring_hw1.entities.Book;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.Optional;
 
 public interface AuthorRepository extends JpaRepository<Author, Long> {
-    //void addBookToAuthor(Long authorId, Book book);//?????
 
-    @Override
     Optional<Author> findById(Long aLong);
 
-    //Optional<Author> findByLogin(String login);
+    Optional<Author> findAuthorByName(String name);
+
+/*    @Modifying
+    @Query("update Author author set author.firstname = ?1, u.lastname = ?2 where u.id = ?3")
+    void updateAurhor(Author author, Long id);*/
 }

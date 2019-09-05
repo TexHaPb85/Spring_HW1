@@ -6,7 +6,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
@@ -14,8 +13,7 @@ import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "authors")
-public class Author implements UserDetails{
-
+public class Author implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "author_Id")
@@ -30,30 +28,17 @@ public class Author implements UserDetails{
     @Column(name = "password")
     private String password;
 
-    @OneToMany(mappedBy = "author")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "author")
     private List<Book> books;
 
+
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
-    @CollectionTable(name = "AUTHOR_ROLE",joinColumns = @JoinColumn(name = "author_Id"))
+    @CollectionTable(name = "AUTHOR_ROLE", joinColumns = @JoinColumn(name = "author_Id"))
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
 
 
     public Author() {
-
-    }
-
-
-    public void addBook(Book book) {
-        books.add(book);
-    }
-
-    public List<Book> getBooks() {
-        return books;
-    }
-
-    public void setBooks(List<Book> books) {
-        this.books = books;
     }
 
     public Long getId() {
@@ -81,30 +66,33 @@ public class Author implements UserDetails{
     }
 
     @Override
+    public String getPassword() {
+        return this.name;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    @Override
+    public String getUsername() {
+        return this.password;
+    }
+
+    @Override
     public String toString() {
         return "\nAuthor{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", surName='" + surName + '\'' +
-                ", book='" + books + '\'' +
                 "}";
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles.stream()
-                .map(role -> new SimpleGrantedAuthority(role.name()))
+                .map(role -> new SimpleGrantedAuthority(role.name()))//віддає доступи у форматі ROLE_USER, ROLE_ADMIN
                 .collect(Collectors.toList());
-    }
-
-    @Override
-    public String getPassword() {
-        return this.name;
-    }
-
-    @Override
-    public String getUsername() {
-        return this.password;
     }
 
     @JsonIgnore

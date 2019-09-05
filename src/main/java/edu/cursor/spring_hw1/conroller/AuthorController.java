@@ -1,12 +1,11 @@
 package edu.cursor.spring_hw1.conroller;
 
 import edu.cursor.spring_hw1.entities.Author;
-import edu.cursor.spring_hw1.entities.Book;
 import edu.cursor.spring_hw1.service.AuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("library/authors")
@@ -24,29 +23,31 @@ public class AuthorController {
         return authorService.getAllAuthors().toString();
     }
 
-    @GetMapping("{id}/books")
-    public List<Book> getAuthorBooks(@PathVariable Long id) {
-        return authorService.findAuthorById(id).getBooks();
-    }
-
     @GetMapping("{id}")
-    public Author getAuthor(@PathVariable Long id) {
-        return authorService.findAuthorById(id);
+    public ResponseEntity<Author> getAuthorById(@PathVariable Long id) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(authorService.findAuthorById(id));
     }
 
     @PostMapping
-    public void createAuthor(@RequestBody Author author) {
+    public ResponseEntity<Author> createAuthor(@RequestBody Author author) {
         authorService.saveAuthor(author);
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .build();
+    }
+
+    @PutMapping("{id}")
+    public ResponseEntity<Author> updateAuthor(@PathVariable("id") Long id, @RequestBody Author author) {
+        authorService.updateAuthor(author, id);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .build();
     }
 
     @DeleteMapping("{id}")
     public void deleteAuthor(@PathVariable Long id) {
         authorService.removeAuthorById(id);
-    }
-
-    @PutMapping("{id}")
-    public void addBookToAuthor(@PathVariable Long id, @RequestBody Book book) {
-        book.setAuthor(authorService.findAuthorById(id));
-        authorService.findAuthorById(id).addBook(book);
     }
 }

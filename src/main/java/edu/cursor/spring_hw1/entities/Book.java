@@ -8,15 +8,22 @@ public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(name = "title", nullable = false, unique = true)
     private String title;
+
     @Column(name = "genre", nullable = false)
     private String genre;
+
     @Column(name = "description")
     private String description;
+
     @Column(name = "rating", nullable = false)
     private double rating;
+
     @ManyToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name = "author_Id")
+//    @Column(name = "author_Id")
     private Author author;
 
     public Book(String title, String genre, String description, double rating, Author author) {
