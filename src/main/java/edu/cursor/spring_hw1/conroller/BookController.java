@@ -1,8 +1,6 @@
 package edu.cursor.spring_hw1.conroller;
 
 import edu.cursor.spring_hw1.entities.Book;
-import edu.cursor.spring_hw1.exceptions.BookNotFoundException;
-import edu.cursor.spring_hw1.repository.BookRepository;
 import edu.cursor.spring_hw1.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -22,13 +20,13 @@ public class BookController {
     }
 
     @GetMapping
-    public String getBooks() {
-        return bookService.getAllBooks().toString();
+    public List<Book> getBooks() {
+        return bookService.findAllBooks();
     }
 
     @GetMapping("{genre}")
     public List<Book> getGenreSortedBooks(@PathVariable String genre) {
-        return bookService.getAllBooks().stream()
+        return bookService.findAllBooks().stream()
                 .filter(book -> book.getGenre().equals(genre))
                 .collect(Collectors.toList());
     }

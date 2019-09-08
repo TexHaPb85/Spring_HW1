@@ -31,7 +31,6 @@ public class Author implements UserDetails {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "author")
     private List<Book> books;
 
-
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "AUTHOR_ROLE", joinColumns = @JoinColumn(name = "author_Id"))
     @Enumerated(EnumType.STRING)
@@ -79,14 +78,6 @@ public class Author implements UserDetails {
         return this.password;
     }
 
-    @Override
-    public String toString() {
-        return "\nAuthor{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", surName='" + surName + '\'' +
-                "}";
-    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

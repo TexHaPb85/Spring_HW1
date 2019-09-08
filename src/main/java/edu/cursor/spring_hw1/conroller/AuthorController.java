@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("library/authors")
 public class AuthorController {
@@ -19,8 +21,8 @@ public class AuthorController {
     }
 
     @GetMapping
-    public String getAuthors() {
-        return authorService.getAllAuthors().toString();
+    public List<Author> getAuthors() {
+        return authorService.findAllAuthors();
     }
 
     @GetMapping("{id}")

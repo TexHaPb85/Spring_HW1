@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-public class AuthorService implements UserDetailsService{
+public class AuthorService implements UserDetailsService {
     private final AuthorRepository authorRepository;
 
     @Autowired
@@ -21,29 +21,30 @@ public class AuthorService implements UserDetailsService{
         this.authorRepository = authorRepository;
     }
 
-    public List<Author> getAllAuthors(){
+    public List<Author> findAllAuthors() {
         return authorRepository.findAll();
     }
 
-    public Author findAuthorById(Long id){
+    public Author findAuthorById(Long id) {
         return authorRepository
                 .findById(id)
-                .orElseThrow(()->new AuthorNotFoundException("author not found"));
+                .orElseThrow(() -> new AuthorNotFoundException("author not found"));
     }
 
-    public Author findByUserName(String userName){
-        return authorRepository.findAuthorByName(userName).get();
+    public Author findByUserName(String userName) {
+        return authorRepository
+                .findAuthorByName(userName)
+                .orElseThrow(() -> new AuthorNotFoundException("author with name " + userName + " not found"));
     }
 
-    public Author saveAuthor(Author author){
+    public Author saveAuthor(Author author) {
         authorRepository.save(author);
         return author;
     }
 
     public Author updateAuthor(Author author, Long id) {
         Author editedAuthor = authorRepository.findById(id).orElseThrow(() -> new AuthorNotFoundException("Author not found"));
-        //editedAuthor.setId(author.getId());
-        System.out.println(id);
+
         editedAuthor.setName(author.getName());
         editedAuthor.setSurName(author.getSurName());
         editedAuthor.setPassword(author.getPassword());
@@ -51,7 +52,7 @@ public class AuthorService implements UserDetailsService{
     }
 
     @Transactional
-    public void removeAuthorById(Long id){
+    public void removeAuthorById(Long id) {
         authorRepository.deleteById(id);
     }
 

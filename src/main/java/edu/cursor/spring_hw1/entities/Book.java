@@ -7,6 +7,7 @@ import javax.persistence.*;
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "book_Id")
     private Long id;
 
     @Column(name = "title", nullable = false, unique = true)
@@ -23,7 +24,6 @@ public class Book {
 
     @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "author_Id")
-//    @Column(name = "author_Id")
     private Author author;
 
     public Book(String title, String genre, String description, double rating, Author author) {
@@ -85,14 +85,4 @@ public class Book {
         this.author = author;
     }
 
-    @Override
-    public String toString() {
-        return "\nBook{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", genre='" + genre + '\'' +
-                ", description='" + description + '\'' +
-                ", rating=" + rating +
-                "}";
-    }
 }
