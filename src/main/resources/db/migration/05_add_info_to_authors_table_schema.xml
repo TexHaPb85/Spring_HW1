@@ -1,0 +1,50 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+    <changeSet id="1" author="Michael Yevtushenko">
+        <insert tableName="books">
+            <column name="title">7 habits of highly effective persons</column>
+            <column name="genre">Science</column>
+            <column name="description">Book that able to change your life</column>
+            <column name="rating">9.1</column>
+            <column name="author_id">2</column>
+        </insert>
+        <insert tableName="books">
+            <column name="title">Legioner</column>
+            <column name="genre">Historical-Drama</column>
+            <column name="description">Story of Rome`s legioner</column>
+            <column name="rating">9.0</column>
+            <column name="author_id">1</column>
+        </insert>
+        <insert tableName="books">
+            <column name="title">How to get money</column>
+            <column name="genre">Business</column>
+            <column name="description">Book that changes your mind</column>
+            <column name="rating">8.5</column>
+            <column name="author_id">3</column>
+        </insert>
+        <insert tableName="books">
+            <column name="title">Gamlet</column>
+            <column name="genre">Drama</column>
+            <column name="description">Philosophical drama</column>
+            <column name="rating">10.0</column>
+            <column name="author_id">4</column>
+        </insert>
+        <insert tableName="books">
+            <column name="title">Star Wars - The new Hope</column>
+            <column name="genre">Adventures, Fantastic</column>
+            <column name="description">Story of Like Skywalker</column>
+            <column name="rating">10.0</column>
+            <column name="author_id">5</column>
+        </insert>
+        <insert tableName="books">
+            <column name="title">Star Wars - Return of the jedi</column>
+            <column name="genre">Adventures, Fantastic</column>
+            <column name="description">Final book of StarWars series</column>
+            <column name="rating">10.0</column>
+            <column name="author_id">5</column>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

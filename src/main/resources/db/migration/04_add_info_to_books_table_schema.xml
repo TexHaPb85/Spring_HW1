@@ -1,0 +1,34 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+
+    <changeSet id="4" author="Michael Yevtushenko">
+        <insert tableName="authors">
+            <column name="name">Luize</column>
+            <column name="sur_name">Rivera</column>
+            <column name="password">Pass1234</column>
+        </insert>
+        <insert tableName="authors">
+            <column name="name">Stiven</column>
+            <column name="sur_name">Kovi</column>
+            <column name="password">Kovi1234</column>
+        </insert>
+        <insert tableName="authors">
+            <column name="name">Itchack</column>
+            <column name="sur_name">Pentosevich</column>
+            <column name="password">Every1234</column>
+        </insert>
+        <insert tableName="authors">
+            <column name="name">Uilyam</column>
+            <column name="sur_name">Shekspire</column>
+            <column name="password">ToBe1</column>
+        </insert>
+        <insert tableName="authors">
+            <column name="name">Jorge</column>
+            <column name="sur_name">Lukas</column>
+            <column name="password">letTheForceToBeWithYou</column>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,12 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <include file="classpath:db/migration/01_creating_table_books_schema.xml"/>
+    <include file="classpath:db/migration/02_creating_table_authors_schema.xml"/>
+    <include file="classpath:db/migration/03_mapping_tables_schema.xml"/>
+    <include file="classpath:db/migration/04_add_info_to_books_table_schema.xml"/>
+    <include file="classpath:db/migration/05_add_info_to_authors_table_schema.xml"/>
+</databaseChangeLog>
