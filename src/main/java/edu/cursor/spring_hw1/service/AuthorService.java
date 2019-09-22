@@ -43,7 +43,9 @@ public class AuthorService implements UserDetailsService {
     }
 
     public Author updateAuthor(Author author, Long id) {
-        Author editedAuthor = authorRepository.findById(id).orElseThrow(() -> new AuthorNotFoundException("Author not found"));
+        Author editedAuthor = authorRepository
+                .findById(id)
+                .orElseThrow(() -> new AuthorNotFoundException("Author not found"));
 
         editedAuthor.setName(author.getName());
         editedAuthor.setSurName(author.getSurName());

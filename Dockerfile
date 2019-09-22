@@ -11,9 +11,9 @@ WORKDIR /home/hw13app
 
 COPY ./ /home/hw13app
 
-ARG JAR_FILE=target\spring_hw1-0.0.1-SNAPSHOT.jar
+ARG JAR_FILE=target/spring_hw1-0.0.1-SNAPSHOT.jar
 
-ADD ${JAR_FILE} test.jar
+ADD ${JAR_FILE} library.jar
 
 EXPOSE 8081
 

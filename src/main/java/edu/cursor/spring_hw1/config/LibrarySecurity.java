@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configurers.provisioning.InMemoryUserDetailsManagerConfigurer;
@@ -34,10 +35,6 @@ public class LibrarySecurity extends WebSecurityConfigurerAdapter {
         return provider;
     }
 
-    private InMemoryUserDetailsManagerConfigurer<AuthenticationManagerBuilder> inMemoryConfigure() {
-        return new InMemoryUserDetailsManagerConfigurer<>();
-    }
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf()
@@ -45,15 +42,15 @@ public class LibrarySecurity extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/", "/**").permitAll()
                 .antMatchers("/admin/**").hasAnyRole("ADMIN")
-                .antMatchers("/users/**").hasAnyRole("USER")
+                .antMatchers("/users/**").hasAnyRole("USER","ADMIN")
                 .anyRequest().authenticated();
 
         http.formLogin()
                 .loginPage("/login")
                 .loginProcessingUrl("/j_spring_security_check")
                 .failureUrl("/login?error")
-                .usernameParameter("username")
-                .passwordParameter("password")
+                .usernameParameter("mike")
+                .passwordParameter("1234")
                 .permitAll();
 
         http.logout()
@@ -68,9 +65,8 @@ public class LibrarySecurity extends WebSecurityConfigurerAdapter {
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-}
 
-/*    @Autowired
+    @Autowired
     public void configureGlobal(AuthenticationManagerBuilder builder,
                                 AuthenticationProvider provider) throws Exception {
         inMemoryConfigure()
@@ -80,4 +76,10 @@ public class LibrarySecurity extends WebSecurityConfigurerAdapter {
                 .and()
                 .configure(builder);
         builder.authenticationProvider(provider);
-    }*/
+    }
+
+    private InMemoryUserDetailsManagerConfigurer<AuthenticationManagerBuilder> inMemoryConfigure() {
+        return new InMemoryUserDetailsManagerConfigurer<>();
+    }
+}
+

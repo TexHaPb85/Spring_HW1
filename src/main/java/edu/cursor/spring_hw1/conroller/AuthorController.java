@@ -32,7 +32,7 @@ public class AuthorController {
                 .body(authorService.findAuthorById(id));
     }
 
-    @PostMapping
+    @PostMapping("/admin")
     public ResponseEntity<Author> createAuthor(@RequestBody Author author) {
         authorService.saveAuthor(author);
         return ResponseEntity
@@ -40,7 +40,7 @@ public class AuthorController {
                 .build();
     }
 
-    @PutMapping("{id}")
+    @PutMapping("/admin/{id}")
     public ResponseEntity<Author> updateAuthor(@PathVariable("id") Long id, @RequestBody Author author) {
         authorService.updateAuthor(author, id);
         return ResponseEntity
@@ -48,7 +48,7 @@ public class AuthorController {
                 .build();
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/admin/{id}")
     public void deleteAuthor(@PathVariable Long id) {
         authorService.removeAuthorById(id);
     }

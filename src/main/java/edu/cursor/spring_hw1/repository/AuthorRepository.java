@@ -2,8 +2,6 @@ package edu.cursor.spring_hw1.repository;
 
 import edu.cursor.spring_hw1.entities.Author;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
 
 import java.util.Optional;
 
